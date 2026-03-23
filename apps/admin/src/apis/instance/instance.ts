@@ -4,8 +4,16 @@ import { ROUTES, TOKEN } from '@/constants/common/constant';
 import { Storage } from '../storage/storage';
 import { Cookie } from '@/apis/cookie/cookie';
 
+export const maruAdmin = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/admin`,
+  timeout: 15000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 export const maru = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
