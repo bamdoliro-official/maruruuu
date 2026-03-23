@@ -1,4 +1,4 @@
-import { maruAdmin } from '@/apis/instance/instance';
+import { maru, maruAdmin } from '@/apis/instance/instance';
 import { authorization } from '@/apis/token';
 import { EXPORT_EXCEL_TYPE_VALUE } from '@/constants/form/constant';
 import type {
@@ -80,7 +80,7 @@ export const getAllAdmissionTicket = async () => {
 };
 
 export const getFormDetail = async (id: number) => {
-  const { data } = await maruAdmin.get<GetFormDetail>(`/forms/${id}`, authorization());
+  const { data } = await maru.get<GetFormDetail>(`/forms/${id}`, authorization());
 
   return data;
 };
