@@ -1,4 +1,4 @@
-import { maru, maruAdmin } from '@/apis/instance/instance';
+import { maru } from '@/apis/instance/instance';
 import { authorization } from '@/apis/token';
 import type { NoticeFileData } from '@/types/notice/client';
 import type {
@@ -24,13 +24,13 @@ export const getNoticeDetail = async (id: number) => {
 };
 
 export const postNotice = async (params: PostNoticeReq) => {
-  const { data } = await maruAdmin.post('/notices', params, authorization());
+  const { data } = await maru.post('/notices', params, authorization());
 
   return data;
 };
 
 export const postNoticeFile = async (params: PostNoticeFileReq[]) => {
-  const data = await maruAdmin.post<PostNoticeFileRes>(
+  const data = await maru.post<PostNoticeFileRes>(
     '/notices/files',
     params,
     authorization(),
