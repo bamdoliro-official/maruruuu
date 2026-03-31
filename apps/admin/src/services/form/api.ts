@@ -1,5 +1,4 @@
 import { maru, maruAdmin } from '@/apis/instance/instance';
-import { authorization } from '@/apis/token';
 import { EXPORT_EXCEL_TYPE_VALUE } from '@/constants/form/constant';
 import type {
   ExportExcelType,
@@ -35,14 +34,13 @@ export const getFormList = async (
     }
   }
 
-  const { data } = await maruAdmin.get<GetFormListRes>(url, authorization());
+  const { data } = await maruAdmin.get<GetFormListRes>(url);
 
   return data;
 };
 
 export const getSecondScoreFormat = async () => {
   const { data } = await maruAdmin.get('/forms/second-round/format', {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -53,7 +51,6 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
   const { data } = await maruAdmin.get(
     `/forms/xlsx/${EXPORT_EXCEL_TYPE_VALUE[exportExcelType]}`,
     {
-      ...authorization(),
       responseType: 'blob',
     },
   );
@@ -64,7 +61,6 @@ export const getExportExcel = async (exportExcelType: ExportExcelType) => {
 export const getFormUrl = async (formIdList: number[]) => {
   const { data } = await maruAdmin.get<GetFormURLRes>(
     `/forms/form-url?id-list=${formIdList.join('%2C')}`,
-    authorization(),
   );
 
   return data;
@@ -72,7 +68,6 @@ export const getFormUrl = async (formIdList: number[]) => {
 
 export const getAllAdmissionTicket = async () => {
   const { data } = await maruAdmin.get('/forms/admission-tickets', {
-    ...authorization(),
     responseType: 'blob',
   });
 
@@ -80,14 +75,13 @@ export const getAllAdmissionTicket = async () => {
 };
 
 export const getFormDetail = async (id: number) => {
-  const { data } = await maru.get<GetFormDetail>(`/forms/${id}`, authorization());
+  const { data } = await maru.get<GetFormDetail>(`/forms/${id}`);
 
   return data;
 };
 
 export const patchSecondScoreFormat = async (formData: FormData) => {
   const { data } = await maruAdmin.patch('/forms/second-round/score', formData, {
-    ...authorization.FormData(),
     responseType: 'blob',
     validateStatus: () => true,
   });
@@ -101,18 +95,13 @@ export const patchSecondRoundResult = async (
   const { data } = await maruAdmin.patch(
     '/forms/second-round/result',
     secondRoundResultData,
-    authorization(),
   );
 
   return data;
 };
 
 export const patchSecondRoundResultAuto = async () => {
-  const { data } = await maruAdmin.patch(
-    '/forms/second-round/select',
-    null,
-    authorization(),
-  );
+  const { data } = await maruAdmin.patch('/forms/second-round/select', null);
 
   return data;
 };
@@ -121,17 +110,12 @@ export const patchReceiveStatus = async (
   formId: number,
   receiveStatus: ReceiveStatusValue,
 ) => {
-  const { data } = await maruAdmin.patch(
-    `/forms/${formId}/${receiveStatus}`,
-    {},
-    authorization(),
-  );
+  const { data } = await maruAdmin.patch(`/forms/${formId}/${receiveStatus}`, {});
   return data;
 };
 
 export const getExportScoreExcel = async () => {
   const { data } = await maruAdmin.get(`/forms/xlsx/subject-grade-detail`, {
-    ...authorization(),
     responseType: 'blob',
   });
 
