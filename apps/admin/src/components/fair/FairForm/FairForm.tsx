@@ -5,7 +5,11 @@ import styled from '@emotion/styled';
 import { IconClock, IconCalendar } from '@maru/icon';
 import FormInput from '@maru/ui/src/Input/FormInput';
 import type { FairType } from '@/types/fair/client';
-import { useFairForm } from '@/components/fair/FairForm/fair.hooks';
+import {
+  formatDateInput,
+  formatTimeInput,
+  useFairForm,
+} from '@/components/fair/FairForm/fair.hooks';
 import { useFairFormStore } from '@/store';
 
 const FairForm = () => {
@@ -48,7 +52,7 @@ const FairForm = () => {
           <FormInput
             placeholder="날짜를 입력해주세요."
             name="start-date"
-            value={form.start.slice(0, 8)}
+            value={formatDateInput(form.start.slice(0, 8))}
             onChange={(e) => handleDateChange(e.target.value)}
           />
           <InputIconWrapper>
@@ -62,7 +66,7 @@ const FairForm = () => {
           <FormInput
             placeholder="시간을 입력해주세요."
             name="start-time"
-            value={form.start.slice(8)}
+            value={formatTimeInput(form.start.slice(8))}
             onChange={(e) => handleTimeChange(e.target.value)}
           />
           <InputIconWrapper>
@@ -76,13 +80,13 @@ const FairForm = () => {
           <FormInput
             placeholder="시작일"
             name="applicationStartDate"
-            value={form.applicationStartDate ?? ''}
+            value={formatDateInput(form.applicationStartDate ?? '')}
             onChange={handleInputChange}
           />
           <FormInput
             placeholder="종료일"
             name="applicationEndDate"
-            value={form.applicationEndDate ?? ''}
+            value={formatDateInput(form.applicationEndDate ?? '')}
             onChange={handleInputChange}
           />
         </CreateInputSort>
