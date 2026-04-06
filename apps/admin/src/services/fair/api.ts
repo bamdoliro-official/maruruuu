@@ -1,4 +1,4 @@
-import { maru } from '@/apis/instance/instance';
+import { maru, maruAdmin } from '@/apis/instance/instance';
 import type { Fair } from '@/types/fair/client';
 import type { GetFairListRes, GetFairDetailRes } from '@/types/fair/remote';
 
@@ -9,13 +9,13 @@ export const getFairList = async () => {
 };
 
 export const getFairDetail = async (id: number) => {
-  const { data } = await maru.get<GetFairDetailRes>(`/fairs/${id}`);
+  const { data } = await maruAdmin.get<GetFairDetailRes>(`/fairs/${id}`);
 
   return data;
 };
 
 export const getFairExportExcel = async (id: number) => {
-  const { data } = await maru.get(`/fairs/${id}/export`, {
+  const { data } = await maruAdmin.get(`/fairs/${id}/export`, {
     responseType: 'blob',
   });
 
@@ -23,7 +23,7 @@ export const getFairExportExcel = async (id: number) => {
 };
 
 export const postFairReq = async (fairData: Fair) => {
-  const { data } = await maru.post(`/fairs`, fairData);
+  const { data } = await maruAdmin.post(`/fairs`, fairData);
 
   return data;
 };
