@@ -1,4 +1,4 @@
-import { maru } from '@/apis/instance/instance';
+import { maru, maruAdmin } from '@/apis/instance/instance';
 import type {
   GetFaqListRes,
   GetFaqDetailRes,
@@ -19,19 +19,19 @@ export const getFaqDetail = async (id: number) => {
 };
 
 export const postFaq = async (params: PostFaqReq) => {
-  const { data } = await maru.post(`/questions`, params);
+  const { data } = await maruAdmin.post(`/questions`, params);
 
   return data;
 };
 
 export const putFaq = async (id: number, params: PutFaqReq) => {
-  const { data } = await maru.put(`/questions/${id}`, params);
+  const { data } = await maruAdmin.put(`/questions/${id}`, params);
 
   return data;
 };
 
 export const deleteFaq = async (id: number) => {
-  const { data } = await maru.delete(`/questions/${id}`);
+  const { data } = await maruAdmin.delete(`/questions/${id}`);
 
   return data;
 };

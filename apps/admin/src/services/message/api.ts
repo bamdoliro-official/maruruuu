@@ -1,4 +1,4 @@
-import { maru } from '@/apis/instance/instance';
+import { maruAdmin } from '@/apis/instance/instance';
 import type {
   PostSendMessageByStatusRequest,
   PostSendMessageByTypeRequest,
@@ -6,16 +6,16 @@ import type {
 } from '@/types/message/remote';
 
 export const postMessageByStatus = async (params: PostSendMessageByStatusRequest) => {
-  const { data } = await maru.post('/messages/status', params);
+  const { data } = await maruAdmin.post('/messages/status', params);
   return data;
 };
 
 export const postMessageByType = async (params: PostSendMessageByTypeRequest) => {
-  const { data } = await maru.post('/messages/type', params);
+  const { data } = await maruAdmin.post('/messages/type', params);
   return data;
 };
 
 export const postMessageToAll = async (params: PostSendMessageToAllRequest) => {
-  const { data } = await maru.post('/messages/all', params);
+  const { data } = await maruAdmin.post('/messages/all', params);
   return data;
 };

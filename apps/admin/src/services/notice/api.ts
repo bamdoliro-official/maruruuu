@@ -1,4 +1,4 @@
-import { maru } from '@/apis/instance/instance';
+import { maru, maruAdmin } from '@/apis/instance/instance';
 import type { NoticeFileData } from '@/types/notice/client';
 import type {
   GetNoticeListRes,
@@ -23,20 +23,20 @@ export const getNoticeDetail = async (id: number) => {
 };
 
 export const postNotice = async (params: PostNoticeReq) => {
-  const { data } = await maru.post('/notices', params);
+  const { data } = await maruAdmin.post('/notices', params);
 
   return data;
 };
 
 export const postNoticeFile = async (params: PostNoticeFileReq[]) => {
-  const data = await maru.post<PostNoticeFileRes>('/notices/files', params);
+  const data = await maruAdmin.post<PostNoticeFileRes>('/notices/files', params);
   const dataList = data.data.dataList;
 
   return dataList;
 };
 
 export const putNotice = async (id: number, params: PutNoticeReq) => {
-  const { data } = await maru.put(`/notices/${id}`, params);
+  const { data } = await maruAdmin.put(`/notices/${id}`, params);
 
   return { data };
 };
@@ -58,7 +58,7 @@ export const putNoticeFileUrl = async (files: File[], fileDatas: NoticeFileData[
 };
 
 export const deleteNotice = async (id: number) => {
-  const { data } = await maru.delete(`/notices/${id}`);
+  const { data } = await maruAdmin.delete(`/notices/${id}`);
 
   return data;
 };
