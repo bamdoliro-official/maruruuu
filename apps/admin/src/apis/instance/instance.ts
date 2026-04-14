@@ -20,38 +20,55 @@ export const maru = axios.create({
   },
 });
 
+interface FailedRequest {
+  resolve: () => void;
+  reject: (error?: unknown) => void;
+}
+
 let isRefreshing = false;
-let refreshPromise: Promise<void> | null = null;
+let failedQueue: FailedRequest[] = [];
+
+const processQueue = (error: unknown) => {
+  failedQueue.forEach((request) => {
+    if (error) {
+      request.reject(error);
+    } else {
+      request.resolve();
+    }
+  });
+
+  failedQueue = [];
+};
 
 const handleRefreshAndRetry = async (error: AxiosError, instance: typeof maru) => {
   const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
-  const isTokenExpired =
-    error.response?.status === 401 &&
-    !originalRequest._retry &&
-    localStorage.getItem('isLoggedIn');
+  const isTokenExpired = error.response?.status === 401 && !originalRequest._retry;
 
   if (isTokenExpired) {
-    if (!isRefreshing) {
-      isRefreshing = true;
-
-      refreshPromise = maru
-        .patch('/auth')
-        .then(() => {})
-        .catch((refreshError) => {
-          localStorage.removeItem('isLoggedIn');
-          window.location.href = ROUTES.MAIN;
-          return Promise.reject(refreshError);
-        })
-        .finally(() => {
-          isRefreshing = false;
+    if (isRefreshing) {
+      return new Promise((resolve, reject) => {
+        failedQueue.push({
+          resolve: () => resolve(instance(originalRequest)),
+          reject,
         });
+      });
     }
 
     originalRequest._retry = true;
+    isRefreshing = true;
 
-    await refreshPromise;
-    return instance(originalRequest);
+    try {
+      await maru.patch('/auth');
+      processQueue(null);
+      return instance(originalRequest);
+    } catch (refreshError) {
+      processQueue(refreshError);
+      window.location.href = ROUTES.MAIN;
+      return Promise.reject(refreshError);
+    } finally {
+      isRefreshing = false;
+    }
   }
 
   return Promise.reject(error);
