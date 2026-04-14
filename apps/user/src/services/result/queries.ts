@@ -2,12 +2,15 @@ import { KEY, SCHEDULE } from '@/constants/common/constants';
 import { useQuery } from '@tanstack/react-query';
 import { getAdmissionTicket, getFinalResult, getFirstResult } from './api';
 import dayjs from 'dayjs';
+import { useAuthState } from '@maru/hooks';
 
 export const useFirstResultQuery = () => {
+  const { isLoggedIn } = useAuthState();
+
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FIRST_RESULT] as const,
     queryFn: getFirstResult,
-    enabled: !!localStorage.getItem('isLoggedIn'),
+    enabled: isLoggedIn,
     retry: false,
   });
 
@@ -15,10 +18,12 @@ export const useFirstResultQuery = () => {
 };
 
 export const useFinalResultQuery = () => {
+  const { isLoggedIn } = useAuthState();
+
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FINAL_RESULT] as const,
     queryFn: getFinalResult,
-    enabled: !!localStorage.getItem('isLoggedIn'),
+    enabled: isLoggedIn,
     retry: false,
   });
 
@@ -27,13 +32,12 @@ export const useFinalResultQuery = () => {
 
 export const useDownloadAdmissionTicketQuery = () => {
   const day = dayjs();
+  const { isLoggedIn } = useAuthState();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.ADMISSION_TICKET] as const,
     queryFn: getAdmissionTicket,
-    enabled:
-      !!localStorage.getItem('isLoggedIn') &&
-      day.isBetween(SCHEDULE.일차_합격_발표, SCHEDULE.이차_면접),
+    enabled: isLoggedIn && day.isBetween(SCHEDULE.일차_합격_발표, SCHEDULE.이차_면접),
     retry: false,
   });
 

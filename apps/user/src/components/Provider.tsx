@@ -7,11 +7,12 @@ import type { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Suspense } from 'react';
 import { MobileProvider } from './common';
-import { useToast } from '@maru/hooks';
+import { AuthStateProvider, useToast } from '@maru/hooks';
 import styled from '@emotion/styled';
 
 interface Props {
   children: ReactNode;
+  initialLoggedIn: boolean;
 }
 
 const GlobalToast = () => {
@@ -72,16 +73,18 @@ const StyledToastWrapper = styled.div`
   }
 `;
 
-const Provider = ({ children }: Props) => {
+const Provider = ({ children, initialLoggedIn }: Props) => {
   return (
     <RecoilRoot>
-      <OverlayProvider>
-        <GlobalStyle />
-        <MobileProvider>
-          <Suspense fallback={<Loader />}>{children}</Suspense>
-        </MobileProvider>
-      </OverlayProvider>
-      <GlobalToast />
+      <AuthStateProvider initialLoggedIn={initialLoggedIn}>
+        <OverlayProvider>
+          <GlobalStyle />
+          <MobileProvider>
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </MobileProvider>
+          <GlobalToast />
+        </OverlayProvider>
+      </AuthStateProvider>
     </RecoilRoot>
   );
 };

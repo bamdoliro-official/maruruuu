@@ -1,5 +1,6 @@
 import { NeedLoginModal } from '@/components/common';
 import { ROUTES } from '@/constants/common/constants';
+import { useAuthState } from '@maru/hooks';
 import { useOverlay } from '@toss/use-overlay';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -7,10 +8,9 @@ import { useEffect } from 'react';
 const useLoginGuard = () => {
   const router = useRouter();
   const overlay = useOverlay();
+  const { isLoggedIn } = useAuthState();
 
   useEffect(() => {
-    const isLoggedIn = !!localStorage.getItem('isLoggedIn');
-
     if (!isLoggedIn) {
       overlay.open(({ close, isOpen }) => (
         <NeedLoginModal
@@ -26,7 +26,7 @@ const useLoginGuard = () => {
         />
       ));
     }
-  }, [overlay, router]);
+  }, [isLoggedIn, overlay, router]);
 };
 
 export default useLoginGuard;

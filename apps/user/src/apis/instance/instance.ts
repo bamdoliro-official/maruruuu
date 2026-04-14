@@ -36,10 +36,7 @@ maru.interceptors.response.use(
       _retry?: boolean;
     };
 
-    const isTokenExpired =
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      localStorage.getItem('isLoggedIn');
+    const isTokenExpired = error.response?.status === 401 && !originalRequest._retry;
 
     if (isTokenExpired) {
       if (isRefreshing) {
@@ -60,7 +57,6 @@ maru.interceptors.response.use(
         return maru(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError);
-        localStorage.removeItem('isLoggedIn');
         window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {

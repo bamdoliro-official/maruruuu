@@ -5,7 +5,7 @@ import { ROUTES } from '@/constants/common/constants';
 import { useRouter } from 'next/navigation';
 import { useApiError } from '@/hooks';
 import { useSetStepStore } from '@/stores';
-import { useToast } from '@maru/hooks';
+import { useAuthState, useToast } from '@maru/hooks';
 
 export const useLoginMutation = (
   device: string,
@@ -14,11 +14,12 @@ export const useLoginMutation = (
   const router = useRouter();
   const { toast } = useToast();
   const setStep = useSetStepStore();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: loginMutate, ...restMutation } = useMutation({
     mutationFn: () => postLogin({ phoneNumber, password }),
     onSuccess: () => {
-      localStorage.setItem('isLoggedIn', 'true');
+      setIsLoggedIn(true);
       if (device === 'COMPUTER') {
         toast('로그인 되었습니다.', 'SUCCESS');
         router.replace(ROUTES.MAIN);
@@ -40,17 +41,14 @@ export const useLoginMutation = (
 };
 
 export const useLogoutMutation = () => {
-  const router = useRouter();
   const { handleError } = useApiError();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: logoutMutate, ...restMutation } = useMutation({
     mutationFn: deleteLogout,
     onSuccess: () => {
-      localStorage.removeItem('isLoggedIn');
-      router.replace(ROUTES.MAIN);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      setIsLoggedIn(false);
+      window.location.href = ROUTES.MAIN;
     },
     onError: handleError,
   });

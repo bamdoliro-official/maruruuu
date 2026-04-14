@@ -4,6 +4,7 @@ import { ROUTES } from '@/constants/common/constants';
 import { AppLayout } from '@/layouts';
 import { color, font } from '@maru/design-system';
 import { IconArrowRight } from '@maru/icon';
+import { useAuthState } from '@maru/hooks';
 import { Button, Column, Input, PreviewInput, Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import Link from 'next/link';
@@ -17,10 +18,9 @@ import { AlertStyleModal } from '@/components/common';
 const Login = () => {
   const router = useRouter();
   const overlay = useOverlay();
+  const { isLoggedIn } = useAuthState();
 
   useEffect(() => {
-    const isLoggedIn = !!localStorage.getItem('isLoggedIn');
-
     if (isLoggedIn) {
       overlay.open(({ close, isOpen }) => (
         <AlertStyleModal
@@ -41,7 +41,7 @@ const Login = () => {
         />
       ));
     }
-  }, [overlay, router]);
+  }, [isLoggedIn, overlay, router]);
 
   const { handleMoveMainPage } = useCTAButton();
   const { login, handleLoginChange } = useInput();

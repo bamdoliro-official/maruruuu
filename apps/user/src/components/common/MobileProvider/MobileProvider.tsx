@@ -2,6 +2,7 @@
 
 import { MobileLogin, MobileMain, MobileResult } from '@/components/mobile';
 import { useStepStore } from '@/stores';
+import { useAuthState } from '@maru/hooks';
 import { SwitchCase } from '@toss/react';
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -13,6 +14,7 @@ interface Props {
 const MobileProvider = ({ children }: Props) => {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [step, setStep] = useStepStore();
+  const { isLoggedIn } = useAuthState();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 700);
@@ -23,14 +25,12 @@ const MobileProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    const isLoggedIn = !!localStorage.getItem('isLoggedIn');
     if (isLoggedIn) {
       if (step === 'LOGIN') setStep('MAIN');
     } else {
       if (step !== 'LOGIN') setStep('LOGIN');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn, setStep, step]);
 
   if (isMobile === null) return null;
 

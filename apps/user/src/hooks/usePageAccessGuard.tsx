@@ -4,6 +4,7 @@ import { useOverlay } from '@toss/use-overlay';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import { Text } from '@maru/ui';
+import { useAuthState } from '@maru/hooks';
 import { ROUTES } from '@/constants/common/constants';
 import { AlertStyleModal, NeedLoginModal } from '@/components/common';
 
@@ -16,10 +17,10 @@ interface GuardOptions {
 const usePageAccessGuard = (options: GuardOptions) => {
   const router = useRouter();
   const overlay = useOverlay();
+  const { isLoggedIn } = useAuthState();
 
   useEffect(() => {
     const now = dayjs();
-    const isLoggedIn = !!localStorage.getItem('isLoggedIn');
 
     if (!isLoggedIn) {
       overlay.open(({ close, isOpen }) => (
@@ -53,7 +54,7 @@ const usePageAccessGuard = (options: GuardOptions) => {
         />
       ));
     }
-  }, [router, overlay, options]);
+  }, [isLoggedIn, router, overlay, options]);
 };
 
 export default usePageAccessGuard;
