@@ -1,5 +1,6 @@
 import Provider from '@/components/Provider';
 import QueryClientProvider from '@/services/QueryClientProvider';
+import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import StyledComponentsRegistry from '@/lib/StyledComponentRegistry';
 
@@ -14,12 +15,16 @@ interface RootLayoutProps {
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
+  const cookieStore = cookies();
+  const initialLoggedIn =
+    cookieStore.has('accessToken') || cookieStore.has('refreshToken');
+
   return (
     <html lang="en">
       <body>
         <StyledComponentsRegistry>
           <QueryClientProvider>
-            <Provider>{children}</Provider>
+            <Provider initialLoggedIn={initialLoggedIn}>{children}</Provider>
           </QueryClientProvider>
         </StyledComponentsRegistry>
       </body>

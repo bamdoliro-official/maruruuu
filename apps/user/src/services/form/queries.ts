@@ -9,14 +9,17 @@ import {
 } from './api';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import { useAuthState } from '@maru/hooks';
 
 dayjs.extend(isBetween);
 
 export const useFormStatusQuery = () => {
+  const { isLoggedIn } = useAuthState();
+
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.FORM_STATUS],
     queryFn: getFormStatus,
-    enabled: !!localStorage.getItem('isLoggedIn'),
+    enabled: isLoggedIn,
     retry: false,
   });
 
@@ -25,13 +28,12 @@ export const useFormStatusQuery = () => {
 
 export const useExportFormQuery = () => {
   const day = dayjs();
+  const { isLoggedIn } = useAuthState();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.EXPORT_FORM],
     queryFn: getExportForm,
-    enabled:
-      !!localStorage.getItem('isLoggedIn') &&
-      day.isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감),
+    enabled: isLoggedIn && day.isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감),
     retry: false,
   });
 
@@ -40,13 +42,12 @@ export const useExportFormQuery = () => {
 
 export const useExportReceiptQuery = () => {
   const day = dayjs();
+  const { isLoggedIn } = useAuthState();
 
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.EXPORT_RECEIPT],
     queryFn: getExportReceipt,
-    enabled:
-      !!localStorage.getItem('isLoggedIn') &&
-      day.isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감),
+    enabled: isLoggedIn && day.isBetween(SCHEDULE.원서_접수, SCHEDULE.원서_접수_마감),
     retry: false,
   });
 
@@ -54,10 +55,12 @@ export const useExportReceiptQuery = () => {
 };
 
 export const useSaveFormQuery = () => {
+  const { isLoggedIn } = useAuthState();
+
   const { data, ...restQuery } = useQuery({
     queryKey: [KEY.SAVE_FORM],
     queryFn: getSaveForm,
-    enabled: !!localStorage.getItem('isLoggedIn'),
+    enabled: isLoggedIn,
     retry: false,
   });
 

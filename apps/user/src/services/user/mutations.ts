@@ -16,22 +16,19 @@ import type {
   PostUserVerificationReq,
 } from '@/types/user/remote';
 import type { Dispatch, SetStateAction } from 'react';
-import { useToast } from '@maru/hooks';
+import { useAuthState, useToast } from '@maru/hooks';
 
 export const useWithdrawalMutation = (password: string) => {
-  const router = useRouter();
   const { handleError } = useApiError();
   const { toast } = useToast();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: withdrawalMutate, ...restMutation } = useMutation({
     mutationFn: () => deleteUser(password),
     onSuccess: () => {
       toast('회원탈퇴에 성공했습니다.', 'SUCCESS');
-      router.replace(ROUTES.MAIN);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      localStorage.removeItem('isLoggedIn');
+      setIsLoggedIn(false);
+      window.location.href = ROUTES.MAIN;
     },
     onError: handleError,
   });

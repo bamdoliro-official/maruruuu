@@ -3,7 +3,7 @@ import { useApiError } from '@/hooks';
 import type { PostLoginAuthReq } from '@/types/auth/remote';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@maru/hooks';
+import { useAuthState, useToast } from '@maru/hooks';
 import { deleteLogoutAdmin, postLoginAdmin } from './api';
 import { maru } from '@/apis/instance/instance';
 import type { GetAdminRes } from '@/types/admin/remote';
@@ -12,6 +12,7 @@ export const useLoginAdminMutation = ({ phoneNumber, password }: PostLoginAuthRe
   const router = useRouter();
   const { handleError } = useApiError();
   const { toast } = useToast();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: loginAdminMutate, ...restMutation } = useMutation({
     mutationFn: () => postLoginAdmin({ phoneNumber, password }),
@@ -23,7 +24,7 @@ export const useLoginAdminMutation = ({ phoneNumber, password }: PostLoginAuthRe
           router.replace(ROUTES.MAIN);
           return;
         }
-        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
         router.replace(ROUTES.FORM);
       } catch {
         toast('관리자 정보 조회 실패', 'ERROR');
@@ -39,12 +40,13 @@ export const useLoginAdminMutation = ({ phoneNumber, password }: PostLoginAuthRe
 export const useLogoutAdminMutation = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const { setIsLoggedIn } = useAuthState();
 
   const { mutate: logoutAdminMutate, ...restMutation } = useMutation({
     mutationFn: deleteLogoutAdmin,
     onSuccess: () => {
       toast('로그아웃 되었습니다.', 'SUCCESS');
-      localStorage.removeItem('isLoggedIn');
+      setIsLoggedIn(false);
       router.replace(ROUTES.MAIN);
     },
     onError: () => {

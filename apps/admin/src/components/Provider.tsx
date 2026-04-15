@@ -6,11 +6,11 @@ import type { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Toast } from '@maru/ui';
 import styled from '@emotion/styled';
-import useToast from '@maru/hooks/src/useToast';
-import type { ToastItem } from '@maru/hooks/src/useToast';
+import { AuthStateProvider, useToast } from '@maru/hooks';
 
 interface Props {
   children: ReactNode;
+  initialLoggedIn: boolean;
 }
 
 const GlobalToast = () => {
@@ -18,7 +18,7 @@ const GlobalToast = () => {
 
   return (
     <StyledToastContainer>
-      {toasts.map((toast: ToastItem) => (
+      {toasts.map((toast) => (
         <StyledToastWrapper key={toast.id}>
           <Toast
             type={toast.toastType}
@@ -71,14 +71,16 @@ const StyledToastWrapper = styled.div`
   }
 `;
 
-const Provider = ({ children }: Props) => {
+const Provider = ({ children, initialLoggedIn }: Props) => {
   return (
     <RecoilRoot>
-      <OverlayProvider>
-        <GlobalStyle />
-        {children}
-        <GlobalToast />
-      </OverlayProvider>
+      <AuthStateProvider initialLoggedIn={initialLoggedIn}>
+        <OverlayProvider>
+          <GlobalStyle />
+          {children}
+          <GlobalToast />
+        </OverlayProvider>
+      </AuthStateProvider>
     </RecoilRoot>
   );
 };
