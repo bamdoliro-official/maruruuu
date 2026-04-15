@@ -10,7 +10,7 @@ import { flex } from '@maru/utils';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import { useCTAButton, useInput, useKeyDown, useLoginAction } from './login.hook';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useOverlay } from '@toss/use-overlay';
 import { AlertStyleModal } from '@/components/common';
@@ -19,9 +19,10 @@ const Login = () => {
   const router = useRouter();
   const overlay = useOverlay();
   const { isLoggedIn } = useAuthState();
+  const initialIsLoggedIn = useRef(isLoggedIn);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (initialIsLoggedIn.current) {
       overlay.open(({ close, isOpen }) => (
         <AlertStyleModal
           isOpen={isOpen}
@@ -41,7 +42,7 @@ const Login = () => {
         />
       ));
     }
-  }, [isLoggedIn, overlay, router]);
+  }, [overlay, router]);
 
   const { handleMoveMainPage } = useCTAButton();
   const { login, handleLoginChange } = useInput();
