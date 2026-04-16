@@ -49,12 +49,6 @@ importers:
       '@maru/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@suspensive/react':
-        specifier: ^2.18.12
-        version: 2.18.12(react@18.2.0)
-      '@suspensive/react-query':
-        specifier: ^2.18.12
-        version: 2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.66.0
         version: 5.66.0(react@18.2.0)
@@ -79,15 +73,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      react-cookie:
-        specifier: ^7.2.2
-        version: 7.2.2(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-toastify:
-        specifier: ^11.0.3
-        version: 11.0.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       recoil:
         specifier: ^0.7.7
         version: 0.7.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -137,12 +125,6 @@ importers:
       '@maru/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@suspensive/react':
-        specifier: ^2.18.12
-        version: 2.18.12(react@18.2.0)
-      '@suspensive/react-query':
-        specifier: ^2.18.12
-        version: 2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.66.0
         version: 5.66.0(react@18.2.0)
@@ -550,21 +532,6 @@ packages:
       }
     engines: { node: '>=6.9.0' }
 
-  '@colors/colors@1.5.0':
-    resolution:
-      {
-        integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==,
-      }
-    engines: { node: '>=0.1.90' }
-
-  '@commander-js/extra-typings@12.1.0':
-    resolution:
-      {
-        integrity: sha512-wf/lwQvWAA0goIghcb91dQYpkLBcyhOhQNqG/VgWhnKzgt+UOMvra7EX/2fv70arm5RW+PUHoQHHDa6/p77Eqg==,
-      }
-    peerDependencies:
-      commander: ~12.1.0
-
   '@emnapi/core@1.8.1':
     resolution:
       {
@@ -950,58 +917,6 @@ packages:
         integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==,
       }
 
-  '@suspensive/react-query-4@2.18.12':
-    resolution:
-      {
-        integrity: sha512-HZcFLpnNtGl+PMrAtq1C9s9HyhvNoVQg2X6hKvFU7Z4CoNAbAI06cRfWHdVmUHIK4CgTSlbKfzlW0Bw7WffIqA==,
-      }
-    peerDependencies:
-      '@suspensive/react': ^2.18.12
-      '@tanstack/react-query': ^4
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      '@suspensive/react':
-        optional: true
-      '@tanstack/react-query':
-        optional: true
-
-  '@suspensive/react-query-5@2.18.12':
-    resolution:
-      {
-        integrity: sha512-IADiLCcf9GEYwDkmJEBEWPj8e4NBfH94PXPACgAWEgsP8eXy1tSLRxls2crn8ibgm6kGSuodUGFA7WpwWkTPvw==,
-      }
-    peerDependencies:
-      '@suspensive/react': ^2.18.12
-      '@tanstack/react-query': ^5
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      '@suspensive/react':
-        optional: true
-      '@tanstack/react-query':
-        optional: true
-
-  '@suspensive/react-query@2.18.12':
-    resolution:
-      {
-        integrity: sha512-vx7MCShSdyh3heUsTFxo4TU4+7Xfk56T1Z3gUT2wtpftO5p4j5tEBi82L7/6Efmk6/Apcf2o8Ddr9ysder2WBw==,
-      }
-    hasBin: true
-    peerDependencies:
-      '@suspensive/react': ^2.18.12
-      '@tanstack/react-query': ^4 || ^5
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      '@suspensive/react':
-        optional: true
-
-  '@suspensive/react@2.18.12':
-    resolution:
-      {
-        integrity: sha512-De3sVLxLnMpTSOfW3t3D8uh8+/bK8+L/mV8YRAwjW2PyR8BBe9+nctFRVO+ZCIFKUs7VPtnIXnb+5bKfBQ1vog==,
-      }
-    peerDependencies:
-      react: ^18 || ^19
-
   '@swc/counter@0.1.3':
     resolution:
       {
@@ -1085,24 +1000,12 @@ packages:
         integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==,
       }
 
-  '@types/cookie@0.6.0':
-    resolution:
-      {
-        integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==,
-      }
-
   '@types/dompurify@3.2.0':
     resolution:
       {
         integrity: sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg==,
       }
     deprecated: This is a stub types definition. dompurify provides its own type definitions, so you do not need this installed.
-
-  '@types/hoist-non-react-statics@3.3.6':
-    resolution:
-      {
-        integrity: sha512-lPByRJUer/iN/xa4qpyL0qmL11DqNW81iU/IG1S3uvRUq4oKagz8VCxZjiWkumgt66YT3vOdDgZ0o32sGKtCEw==,
-      }
 
   '@types/json5@0.0.29':
     resolution:
@@ -1679,13 +1582,6 @@ packages:
       }
     engines: { node: '>=18' }
 
-  cli-table3@0.6.5:
-    resolution:
-      {
-        integrity: sha512-+W/5efTR7y5HRD7gACw9yQjqMVvEMLBHmboM/kPWam+H+Hmyrgjh6YncVKK122YZkXrLudzTuAukUw9FnMf7IQ==,
-      }
-    engines: { node: 10.* || >= 12.* }
-
   cli-truncate@5.2.0:
     resolution:
       {
@@ -1698,13 +1594,6 @@ packages:
       {
         integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==,
       }
-
-  clsx@2.1.1:
-    resolution:
-      {
-        integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==,
-      }
-    engines: { node: '>=6' }
 
   color-convert@1.9.3:
     resolution:
@@ -1744,13 +1633,6 @@ packages:
       }
     engines: { node: '>= 0.8' }
 
-  commander@12.1.0:
-    resolution:
-      {
-        integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==,
-      }
-    engines: { node: '>=18' }
-
   commander@14.0.3:
     resolution:
       {
@@ -1776,13 +1658,6 @@ packages:
       {
         integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==,
       }
-
-  cookie@0.7.2:
-    resolution:
-      {
-        integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==,
-      }
-    engines: { node: '>= 0.6' }
 
   cosmiconfig@7.1.0:
     resolution:
@@ -3318,14 +3193,6 @@ packages:
         integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==,
       }
 
-  react-cookie@7.2.2:
-    resolution:
-      {
-        integrity: sha512-e+hi6axHcw9VODoeVu8WyMWyoosa1pzpyjfvrLdF7CexfU+WSGZdDuRfHa4RJgTpfv3ZjdIpHE14HpYBieHFhg==,
-      }
-    peerDependencies:
-      react: '>= 16.3.0'
-
   react-daum-postcode@3.2.0:
     resolution:
       {
@@ -3356,15 +3223,6 @@ packages:
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-
-  react-toastify@11.0.3:
-    resolution:
-      {
-        integrity: sha512-cbPtHJPfc0sGqVwozBwaTrTu1ogB9+BLLjd4dDXd863qYLj7DGrQ2sg5RAChjFUB4yc3w8iXOtWcJqPK/6xqRQ==,
-      }
-    peerDependencies:
-      react: ^18 || ^19
-      react-dom: ^18 || ^19
 
   react@18.2.0:
     resolution:
@@ -3980,12 +3838,6 @@ packages:
         integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==,
       }
 
-  universal-cookie@7.2.2:
-    resolution:
-      {
-        integrity: sha512-fMiOcS3TmzP2x5QV26pIH3mvhexLIT0HmPa3V7Q7knRfT9HG6kTwq02HZGLPw0sAOXrAmotElGRvTLCMbJsvxQ==,
-      }
-
   unrs-resolver@1.11.1:
     resolution:
       {
@@ -4167,13 +4019,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-
-  '@colors/colors@1.5.0':
-    optional: true
-
-  '@commander-js/extra-typings@12.1.0(commander@12.1.0)':
-    dependencies:
-      commander: 12.1.0
 
   '@emnapi/core@1.8.1':
     dependencies:
@@ -4424,36 +4269,6 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@suspensive/react-query-4@2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      react: 18.2.0
-    optionalDependencies:
-      '@suspensive/react': 2.18.12(react@18.2.0)
-      '@tanstack/react-query': 5.66.0(react@18.2.0)
-
-  '@suspensive/react-query-5@2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      react: 18.2.0
-    optionalDependencies:
-      '@suspensive/react': 2.18.12(react@18.2.0)
-      '@tanstack/react-query': 5.66.0(react@18.2.0)
-
-  '@suspensive/react-query@2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@commander-js/extra-typings': 12.1.0(commander@12.1.0)
-      '@suspensive/react-query-4': 2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)
-      '@suspensive/react-query-5': 2.18.12(@suspensive/react@2.18.12(react@18.2.0))(@tanstack/react-query@5.66.0(react@18.2.0))(react@18.2.0)
-      '@tanstack/react-query': 5.66.0(react@18.2.0)
-      cli-table3: 0.6.5
-      commander: 12.1.0
-      react: 18.2.0
-    optionalDependencies:
-      '@suspensive/react': 2.18.12(react@18.2.0)
-
-  '@suspensive/react@2.18.12(react@18.2.0)':
-    dependencies:
-      react: 18.2.0
-
   '@swc/counter@0.1.3': {}
 
   '@swc/helpers@0.5.5':
@@ -4507,16 +4322,9 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/cookie@0.6.0': {}
-
   '@types/dompurify@3.2.0':
     dependencies:
       dompurify: 3.3.3
-
-  '@types/hoist-non-react-statics@3.3.6':
-    dependencies:
-      '@types/react': 18.3.1
-      hoist-non-react-statics: 3.3.2
 
   '@types/json5@0.0.29': {}
 
@@ -4877,20 +4685,12 @@ snapshots:
     dependencies:
       restore-cursor: 5.1.0
 
-  cli-table3@0.6.5:
-    dependencies:
-      string-width: 4.2.3
-    optionalDependencies:
-      '@colors/colors': 1.5.0
-
   cli-truncate@5.2.0:
     dependencies:
       slice-ansi: 8.0.0
       string-width: 8.2.0
 
   client-only@0.0.1: {}
-
-  clsx@2.1.1: {}
 
   color-convert@1.9.3:
     dependencies:
@@ -4910,8 +4710,6 @@ snapshots:
     dependencies:
       delayed-stream: 1.0.0
 
-  commander@12.1.0: {}
-
   commander@14.0.3: {}
 
   comment-parser@1.4.1: {}
@@ -4919,8 +4717,6 @@ snapshots:
   concat-map@0.0.1: {}
 
   convert-source-map@1.9.0: {}
-
-  cookie@0.7.2: {}
 
   cosmiconfig@7.1.0:
     dependencies:
@@ -5949,13 +5745,6 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-cookie@7.2.2(react@18.2.0):
-    dependencies:
-      '@types/hoist-non-react-statics': 3.3.6
-      hoist-non-react-statics: 3.3.2
-      react: 18.2.0
-      universal-cookie: 7.2.2
-
   react-daum-postcode@3.2.0(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -5970,12 +5759,6 @@ snapshots:
 
   react-spinners@0.13.8(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
-  react-toastify@11.0.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
-    dependencies:
-      clsx: 2.1.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
@@ -6371,11 +6154,6 @@ snapshots:
       which-boxed-primitive: 1.1.1
 
   undici-types@6.19.8: {}
-
-  universal-cookie@7.2.2:
-    dependencies:
-      '@types/cookie': 0.6.0
-      cookie: 0.7.2
 
   unrs-resolver@1.11.1:
     dependencies:
