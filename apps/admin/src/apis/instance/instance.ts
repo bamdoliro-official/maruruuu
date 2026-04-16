@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ROUTES } from '@/constants/common/constant';
 
 export const maruAdmin = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}/admin`,
+  baseURL: '/api/admin',
   timeout: 15000,
   withCredentials: true,
   headers: {
@@ -12,7 +12,7 @@ export const maruAdmin = axios.create({
 });
 
 export const maru = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+  baseURL: '/api',
   timeout: 15000,
   withCredentials: true,
   headers: {

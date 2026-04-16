@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "next lint",
     "check-types": "tsc --noEmit"
   },
@@ -18,8 +18,6 @@
     "@maru/icon": "workspace:*",
     "@maru/ui": "workspace:*",
     "@maru/utils": "workspace:*",
-    "@suspensive/react": "^2.18.12",
-    "@suspensive/react-query": "^2.18.12",
     "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-query-devtools": "^5.66.0",
     "@toss/react": "^1.8.1",
