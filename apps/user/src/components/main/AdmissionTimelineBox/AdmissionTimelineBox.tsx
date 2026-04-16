@@ -37,7 +37,7 @@ const StyledAdmissionTimelineBox = styled.div`
   max-width: 708px;
   border-radius: 32px;
   padding: 60px;
-  background: rgba(0, 0, 0, 0.65) url('/images/school_background.png');
+  background: rgba(0, 0, 0, 0.65) url('/images/school_background.webp');
   background-repeat: no-repeat;
   background-position: center right;
   background-size: cover;
