@@ -81,7 +81,7 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const StyledLogin = styled.div`
+const StyledLogin = styled.main`
   ${flex({ justifyContent: 'center' })}
   width: 100%;
   height: 100vh;

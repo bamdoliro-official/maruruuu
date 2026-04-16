@@ -26,7 +26,7 @@ const StyledAppLayout = styled.div`
   height: 100vh;
 `;
 
-const Section = styled.section`
+const Section = styled.main`
   flex: 1;
   min-width: auto;
   overflow: auto;
