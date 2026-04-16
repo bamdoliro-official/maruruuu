@@ -1,3 +1,17 @@
+const backendBaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+const getBackendUrl = () => {
+  if (!backendBaseUrl) return null;
+
+  try {
+    return new URL(backendBaseUrl);
+  } catch {
+    return null;
+  }
+};
+
+const backendUrl = getBackendUrl();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
@@ -7,22 +21,27 @@ const nextConfig = {
   poweredByHeader: false,
   images: {
     unoptimized: false,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: `${process.env.NEXT_PUBLIC_BASE_URL}`,
-      },
-    ],
+    remotePatterns: backendUrl
+      ? [
+          {
+            protocol: backendUrl.protocol.replace(':', ''),
+            hostname: backendUrl.hostname,
+            port: backendUrl.port || undefined,
+          },
+        ]
+      : [],
   },
   reactStrictMode: true,
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/:path*',
-  //       destination: `${process.env.NEXT_PUBLIC_BASE_URL}/:path*`,
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    if (!backendBaseUrl) return [];
+
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${backendBaseUrl}/:path*`,
+      },
+    ];
+  },
   async headers() {
     return [
       {
@@ -43,6 +62,14 @@ const nextConfig = {
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
           },
         ],
       },
