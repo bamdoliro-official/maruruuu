@@ -3,8 +3,6 @@
 import color from './color';
 
 const globalStylesString = `
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
   * {
     box-sizing: border-box;
     margin: 0;
@@ -59,7 +57,8 @@ const globalStylesString = `
     width: 100%;
     height: 100%;
     overflow: auto;
-    font-family: 'Pretendard Variable', Pretendard sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR',
+      sans-serif;
   }
 
   html::-webkit-scrollbar,
