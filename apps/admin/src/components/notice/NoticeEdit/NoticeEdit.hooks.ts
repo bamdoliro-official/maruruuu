@@ -52,14 +52,17 @@ export const useNoticeEditData = (id: number) => {
 
 export const useNoticeEditAction = (id: number, noticeData: NoticeInput) => {
   const { putNoticeMutate } = usePutNoticeMutation(id);
-  const { noticeFileUrlMutate } = useNoticeFileUrlMutation();
+  const { noticeFileUrlMutateAsync } = useNoticeFileUrlMutation();
   const [fileData, setFileData] = useNoticeFileStore();
 
   const handleNoticeEditButtonClick = async () => {
-    const fileNameList = noticeData.fileNameList ?? [];
+    let fileNameList = noticeData.fileNameList ?? [];
 
     if (fileData?.length) {
-      await noticeFileUrlMutate(fileData);
+      const responseList = await noticeFileUrlMutateAsync(fileData);
+      if (responseList?.length) {
+        fileNameList = [...fileNameList, ...responseList.map((file) => file.fileName)];
+      }
     }
 
     putNoticeMutate(
