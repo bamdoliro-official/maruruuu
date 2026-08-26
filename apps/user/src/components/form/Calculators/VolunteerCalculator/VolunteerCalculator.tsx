@@ -13,6 +13,7 @@ const VolunteerCalculator = () => {
 
   const isReadOnly = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
   const scoreEndYear = formatYear(SCHEDULE.원서_접수);
+  const scoreStartYear = formatYear(SCHEDULE.원서_접수.subtract(2, 'year'));
   const volunteerData = [
     { grade: '1학년', name: 'volunteerTime1', value: form.grade.volunteerTime1 },
     { grade: '2학년', name: 'volunteerTime2', value: form.grade.volunteerTime2 },
@@ -22,8 +23,8 @@ const VolunteerCalculator = () => {
   return (
     <StyledVolunteerCalculator>
       <Text fontType="p3" color={color.red}>
-        *{scoreEndYear}.09.30까지의 봉사시간을 기재해주세요. 졸업생은 졸업일 기준으로
-        기재해주세요.
+        *{scoreStartYear}.03.01부터 {scoreEndYear}.09.30까지의 봉사시간을 기재해주세요.
+        졸업생은 졸업일 기준으로 기재해주세요.
       </Text>
       <Column>
         <Row>
