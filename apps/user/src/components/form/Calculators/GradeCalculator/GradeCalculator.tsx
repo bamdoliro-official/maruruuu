@@ -36,6 +36,9 @@ const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
           )}
           *국어•영어•수학에서 미이수 입력 시 자동으로 C로 처리됩니다.
           <br />
+          *1학년 정보 교과 성적은 정보 교과 가중치 산출에만 반영되며, 이수한 경우에만
+          입력해주세요.
+          <br />
           {option === 'SIMULATION' && <>*-(하이픈)은 점수에 반영되지 않습니다.</>}
         </Text>
         {option === 'SIMULATION' && (

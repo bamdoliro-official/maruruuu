@@ -2,6 +2,7 @@ import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import BasicCalculatorHeader from './BasicCalculatorHeader/BasicCalculatorHeader';
 import BasicCalculatorItem from './BasicCalculatorItem/BasicCalculatorItem';
+import InformationFirstGrade from './InformationFirstGrade/InformationFirstGrade';
 import { useSetFormStore, useSubjectListValueStore } from '@/stores';
 import { useEffect } from 'react';
 
@@ -27,15 +28,15 @@ const BasicCalculator = ({ subjectError }: BasicCalculatorProps) => {
   return (
     <StyledBasicCalculator>
       <BasicCalculatorHeader />
-      {subjectList.map(({ id }, index) => (
+      {subjectList.map(({ id }) => (
         <BasicCalculatorItem
           id={id}
           key={`subject ${id}`}
           achievementLevels={ACHIEVEMENT_LEVELS}
           isError={subjectError}
-          isLast={index === subjectList.length - 1}
         />
       ))}
+      <InformationFirstGrade achievementLevels={ACHIEVEMENT_LEVELS} />
     </StyledBasicCalculator>
   );
 };

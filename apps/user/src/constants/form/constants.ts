@@ -4,9 +4,18 @@ import 'dayjs/locale/ko';
 
 dayjs.locale('ko');
 
+export const INFORMATION_SUBJECT = '정보';
+
+export const INFORMATION_FIRST_GRADE_KEYS = [
+  'achievementLevel11',
+  'achievementLevel12',
+] as const;
+
 export const SCORE = {
-  REGULAR_TYPE: 80,
-  SPECIAL_TYPE: 48,
+  REGULAR_TYPE: 77.5,
+  SPECIAL_TYPE: 45.5,
+  GED_REGULAR_TYPE: 80,
+  GED_SPECIAL_TYPE: 48,
   ATTENDANCE: 14,
   VOLUNTEER: 14,
   MIN_ATTENDANCE: 0,
@@ -27,6 +36,9 @@ export const WEIGHT = {
   REGULAR_31: 7.2 * 2,
   SPECIAL_21_22: 2.88,
   SPECIAL_31: 4.32 * 2,
+  GED_REGULAR: 12 * 2,
+  GED_SPECIAL: 7.2 * 2,
+  INFORMATION: 0.5,
 };
 
 export const CERTIFICATE_LIST: {

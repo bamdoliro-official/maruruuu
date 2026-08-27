@@ -1,4 +1,5 @@
 import type { Form, Subject } from '@/types/form/client';
+import { INFORMATION_SUBJECT } from './constants';
 
 export const STEP_LIST = ['성적 입력', '출결상황', '봉사시간', '자격증'] as const;
 
@@ -78,6 +79,10 @@ export const SUBJECT_LIST: Subject[] = [
   achievementLevel22: '-',
   achievementLevel31: '-',
   score: null,
+  ...(subject === INFORMATION_SUBJECT && {
+    achievementLevel11: '-',
+    achievementLevel12: '-',
+  }),
 }));
 
 export const GED_SUBJECT_LIST: Subject[] = ['국어', '수학', '사회', '과학', '영어'].map(

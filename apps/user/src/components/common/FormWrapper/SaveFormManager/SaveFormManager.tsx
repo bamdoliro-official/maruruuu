@@ -39,7 +39,7 @@ const SaveFormManager = () => {
               ({ subjectName }) => subjectName === subject.subjectName,
             );
 
-            return savedSubject ? { ...savedSubject, id: index } : subject;
+            return savedSubject ? { ...subject, ...savedSubject, id: index } : subject;
           }),
         );
       }

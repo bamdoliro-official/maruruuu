@@ -99,6 +99,9 @@ export type SubjectList = Omit<Subject, 'id'>;
 export interface Subject {
   id: number;
   subjectName: string;
+  /** 1학년 성적은 정보 교과 가중치 산출에만 사용하므로 정보 교과만 가진다. */
+  achievementLevel11?: AchievementLevel;
+  achievementLevel12?: AchievementLevel;
   achievementLevel21: AchievementLevel;
   achievementLevel22: AchievementLevel;
   achievementLevel31: AchievementLevel;

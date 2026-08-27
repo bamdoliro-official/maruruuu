@@ -1,5 +1,6 @@
-import { COUNT, SCORE, WEIGHT } from '@/constants/form/constants';
+import { COUNT, INFORMATION_SUBJECT, SCORE, WEIGHT } from '@/constants/form/constants';
 import { useFormValueStore } from '@/stores';
+import type { AchievementLevel } from '@/types/form/client';
 import { getAchivementLevel } from '@/utils';
 
 enum AchievementScore {
@@ -25,8 +26,45 @@ type AttendanceKey =
 
 const CORE_SUBJECTS = ['국어', '영어', '수학'];
 
+// 정보 교과는 1학년 성적도 가중치 산출에 포함한다.
+const INFORMATION_LEVEL_KEYS = [
+  'achievementLevel11',
+  'achievementLevel12',
+  'achievementLevel21',
+  'achievementLevel22',
+  'achievementLevel31',
+] as const;
+
+const INFORMATION_FALLBACK_LEVEL = 'C';
+
 const useGradeCalculation = () => {
   const form = useFormValueStore();
+
+  // 정보 교과 가중치 = (정보 교과 성적 환산 점수 총합 / 정보 교과 총 이수학기) x 0.5
+  // 가중치 산출에 사용할 정보 교과 성적이 없는 경우 C로 환산하여 반영한다.
+  const getInformationWeight = () => {
+    const informationSubject = form.grade.subjectList?.find(
+      (subject) => subject.subjectName === INFORMATION_SUBJECT,
+    );
+
+    const achievementLevels = INFORMATION_LEVEL_KEYS.map(
+      (key) => informationSubject?.[key],
+    ).filter(
+      (achievementLevel): achievementLevel is Exclude<AchievementLevel, '-' | 'F'> =>
+        achievementLevel !== undefined &&
+        achievementLevel !== '-' &&
+        achievementLevel !== 'F',
+    );
+
+    const averageScore = achievementLevels.length
+      ? achievementLevels.reduce(
+          (acc, achievementLevel) => acc + AchievementScore[achievementLevel],
+          0,
+        ) / achievementLevels.length
+      : AchievementScore[INFORMATION_FALLBACK_LEVEL];
+
+    return averageScore * WEIGHT.INFORMATION;
+  };
 
   const getScoreOf = (achievementLevelKey: AchievementLevelKey) => {
     const scoreTotal = form.grade.subjectList?.reduce((acc, subject) => {
@@ -75,7 +113,8 @@ const useGradeCalculation = () => {
 
       const regularLength = form.grade.subjectList?.length + 1;
 
-      const regularScore = SCORE.REGULAR_TYPE + (12 * 2 * regularTotal) / regularLength;
+      const regularScore =
+        SCORE.GED_REGULAR_TYPE + (WEIGHT.GED_REGULAR * regularTotal) / regularLength;
 
       return Number(regularScore.toFixed(3));
     }
@@ -84,7 +123,8 @@ const useGradeCalculation = () => {
       SCORE.REGULAR_TYPE +
       WEIGHT.REGULAR_21_22 *
         (getScoreOf('achievementLevel21') + getScoreOf('achievementLevel22')) +
-      WEIGHT.REGULAR_31 * getScoreOf('achievementLevel31');
+      WEIGHT.REGULAR_31 * getScoreOf('achievementLevel31') +
+      getInformationWeight();
 
     return Number(regularScore.toFixed(3));
   };
@@ -105,7 +145,8 @@ const useGradeCalculation = () => {
 
       const regularLength = form.grade.subjectList?.length + 1;
 
-      const regularScore = SCORE.SPECIAL_TYPE + (7.2 * 2 * regularTotal) / regularLength;
+      const regularScore =
+        SCORE.GED_SPECIAL_TYPE + (WEIGHT.GED_SPECIAL * regularTotal) / regularLength;
 
       return Number(regularScore.toFixed(3));
     }
@@ -114,7 +155,8 @@ const useGradeCalculation = () => {
       SCORE.SPECIAL_TYPE +
       WEIGHT.SPECIAL_21_22 *
         (getScoreOf('achievementLevel21') + getScoreOf('achievementLevel22')) +
-      WEIGHT.SPECIAL_31 * getScoreOf('achievementLevel31');
+      WEIGHT.SPECIAL_31 * getScoreOf('achievementLevel31') +
+      getInformationWeight();
 
     return Number(specialScore.toFixed(3));
   };
