@@ -216,7 +216,7 @@ const useGradeCalculation = () => {
       certificateList.includes('CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION') ||
       certificateList.includes('CRAFTSMAN_COMPUTER')
     )
-      certificateScore += 4;
+      certificateScore += 3;
 
     if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_1')) certificateScore += 3;
     else if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_2'))

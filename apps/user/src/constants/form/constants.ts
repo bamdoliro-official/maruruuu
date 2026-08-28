@@ -50,21 +50,21 @@ export const CERTIFICATE_LIST: {
   value: Certificate;
 }[] = [
   {
-    name: '정보처리기능사',
+    name: '프로그래밍기능사',
     organization: '한국산업인력공단',
-    score: '4점',
+    score: '3점',
     value: 'CRAFTSMAN_INFORMATION_PROCESSING',
   },
   {
     name: '정보기기운용기능사',
     organization: '한국산업인력공단',
-    score: '4점',
+    score: '3점',
     value: 'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION',
   },
   {
-    name: '전자계산기기능사',
+    name: '임베디드기능사',
     organization: '한국산업인력공단',
-    score: '4점',
+    score: '3점',
     value: 'CRAFTSMAN_COMPUTER',
   },
 ];
