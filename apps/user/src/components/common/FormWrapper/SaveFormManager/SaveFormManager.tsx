@@ -24,7 +24,11 @@ const SaveFormManager = () => {
     const subjectList = saveFormData.grade.subjectList;
     const graduationType = saveFormData.education.graduationType;
 
-    setForm((prev) => ({ ...prev, ...saveFormData }));
+    setForm((prev) => ({
+      ...prev,
+      ...saveFormData,
+      grade: { ...prev.grade, ...saveFormData.grade },
+    }));
 
     if (subjectList) {
       if (graduationType === 'QUALIFICATION_EXAMINATION') {
