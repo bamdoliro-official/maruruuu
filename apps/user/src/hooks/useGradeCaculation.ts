@@ -208,24 +208,21 @@ const useGradeCalculation = () => {
   };
 
   const calculateCertificateScore = () => {
+    const certificateList = form.grade.certificateList ?? [];
     let certificateScore = 0;
-    if (form.grade.certificateList !== null) {
-      if (
-        form.grade.certificateList.includes('CRAFTSMAN_INFORMATION_PROCESSING') ||
-        form.grade.certificateList.includes(
-          'CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION',
-        ) ||
-        form.grade.certificateList.includes('CRAFTSMAN_COMPUTER')
-      )
-        certificateScore += 4;
 
-      if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_1'))
-        certificateScore += 3;
-      else if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_2'))
-        certificateScore += 2;
-      else if (form.grade.certificateList.includes('COMPUTER_SPECIALIST_LEVEL_3'))
-        certificateScore += 1;
-    }
+    if (
+      certificateList.includes('CRAFTSMAN_INFORMATION_PROCESSING') ||
+      certificateList.includes('CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION') ||
+      certificateList.includes('CRAFTSMAN_COMPUTER')
+    )
+      certificateScore += 4;
+
+    if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_1')) certificateScore += 3;
+    else if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_2'))
+      certificateScore += 2;
+    else if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_3'))
+      certificateScore += 1;
 
     return certificateScore;
   };
