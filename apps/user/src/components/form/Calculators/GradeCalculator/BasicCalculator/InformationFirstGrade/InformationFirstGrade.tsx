@@ -75,9 +75,15 @@ const ToggleFooter = styled.div<{ $isOpen: boolean }>`
 
 const ToggleLabel = styled.label`
   ${flex({ alignItems: 'center' })}
-  gap: 8px;
+  gap: 12px;
   color: ${color.gray900};
-  ${font.context}
+  ${font.H6}
+  cursor: pointer;
+
+  input {
+    width: 22px;
+    height: 22px;
+  }
 `;
 
 const SemesterRow = styled.div`
