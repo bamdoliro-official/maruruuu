@@ -1,6 +1,8 @@
 import { useSaveFormMutation } from '@/services/form/mutations';
 import {
   useFormValueStore,
+  useGEDSubjectListValueStore,
+  useNewGEDSubjectListValueStore,
   useSetFormGradeStepStore,
   useSetFormStepStore,
   useSubjectListValueStore,
@@ -10,6 +12,8 @@ import { useState } from 'react';
 export const useCTAButton = () => {
   const form = useFormValueStore();
   const subjectList = useSubjectListValueStore();
+  const GEDSubjectList = useGEDSubjectListValueStore();
+  const newGEDSubjectList = useNewGEDSubjectListValueStore();
 
   const setFormStep = useSetFormStepStore();
   const setFormGradeStep = useSetFormGradeStepStore();
@@ -18,11 +22,31 @@ export const useCTAButton = () => {
 
   const [subjectError, setSubjectError] = useState<boolean[]>([]);
 
+  // 검정고시는 과목명을 고르지 않았거나 점수가 비어 있어도 총점 분모에는 포함돼
+  // 점수가 조용히 깎인다. 넘어가기 전에 막는다.
+  const validateGEDSubjects = () => {
+    if (newGEDSubjectList.some(({ subjectName }) => !subjectName)) {
+      alert('추가한 선택과목의 과목명을 선택해주세요.');
+      return false;
+    }
+
+    const hasEmptyScore = [...GEDSubjectList, ...newGEDSubjectList].some(
+      ({ score }) => !Number(score),
+    );
+
+    if (hasEmptyScore) {
+      alert('모든 과목의 점수를 입력해주세요.');
+      return false;
+    }
+
+    return true;
+  };
+
   const validateSubjects = () => {
     const type = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
 
     if (type) {
-      return true;
+      return validateGEDSubjects();
     }
 
     const subjectErrors = subjectList.map(
