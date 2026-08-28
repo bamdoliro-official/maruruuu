@@ -5,6 +5,7 @@ import {
   CertificateCalculator,
   GradeCalculator,
   GradePreview,
+  MentoringProgramCalculator,
   VolunteerCalculator,
 } from '@/components/form';
 import { STEP_LIST } from '@/constants/form/data';
@@ -58,7 +59,12 @@ const Simulation = () => {
               성적입력: <GradeCalculator option="SIMULATION" />,
               출결상황: <AttendanceCalculator />,
               봉사시간: <VolunteerCalculator />,
-              자격증: <CertificateCalculator />,
+              가산점: (
+                <Column gap={24}>
+                  <CertificateCalculator />
+                  <MentoringProgramCalculator />
+                </Column>
+              ),
             }}
             defaultComponent={<GradeCalculator option="SIMULATION" />}
           />

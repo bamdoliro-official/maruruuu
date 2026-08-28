@@ -1,7 +1,8 @@
 import { useSaveFormMutation } from '@/services/form/mutations';
 import {
   useFormValueStore,
-  useNewSubjectListValueStore,
+  useGEDSubjectListValueStore,
+  useNewGEDSubjectListValueStore,
   useSetFormGradeStepStore,
   useSetFormStepStore,
   useSubjectListValueStore,
@@ -11,7 +12,8 @@ import { useState } from 'react';
 export const useCTAButton = () => {
   const form = useFormValueStore();
   const subjectList = useSubjectListValueStore();
-  const newSubjectList = useNewSubjectListValueStore();
+  const GEDSubjectList = useGEDSubjectListValueStore();
+  const newGEDSubjectList = useNewGEDSubjectListValueStore();
 
   const setFormStep = useSetFormStepStore();
   const setFormGradeStep = useSetFormGradeStepStore();
@@ -19,13 +21,32 @@ export const useCTAButton = () => {
   const { saveFormMutate } = useSaveFormMutation();
 
   const [subjectError, setSubjectError] = useState<boolean[]>([]);
-  const [newSubjectError, setNewSubjectError] = useState<boolean[]>([]);
+
+  // 검정고시는 과목명을 고르지 않았거나 점수가 비어 있어도 총점 분모에는 포함돼
+  // 점수가 조용히 깎인다. 넘어가기 전에 막는다.
+  const validateGEDSubjects = () => {
+    if (newGEDSubjectList.some(({ subjectName }) => !subjectName)) {
+      alert('추가한 선택과목의 과목명을 선택해주세요.');
+      return false;
+    }
+
+    const hasEmptyScore = [...GEDSubjectList, ...newGEDSubjectList].some(
+      ({ score }) => !Number(score),
+    );
+
+    if (hasEmptyScore) {
+      alert('모든 과목의 점수를 입력해주세요.');
+      return false;
+    }
+
+    return true;
+  };
 
   const validateSubjects = () => {
     const type = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
 
     if (type) {
-      return true;
+      return validateGEDSubjects();
     }
 
     const subjectErrors = subjectList.map(
@@ -35,18 +56,9 @@ export const useCTAButton = () => {
         subject.achievementLevel31 === '-',
     );
 
-    const newSubjectErrors = newSubjectList.map(
-      (subject) =>
-        subject.achievementLevel21 === '-' ||
-        subject.achievementLevel22 === '-' ||
-        subject.achievementLevel31 === '-',
-    );
-
     setSubjectError(subjectErrors);
-    setNewSubjectError(newSubjectErrors);
 
-    const hasError =
-      subjectErrors.some((error) => error) || newSubjectErrors.some((error) => error);
+    const hasError = subjectErrors.some((error) => error);
 
     if (hasError) {
       alert('‘-‘을 미이수 또는 자신의 성취수준으로 입력해주세요');
@@ -58,7 +70,7 @@ export const useCTAButton = () => {
   const handleNextStep = () => {
     if (validateSubjects()) {
       if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-        setFormGradeStep('자격증');
+        setFormGradeStep('가산점');
       } else {
         setFormGradeStep('출결상황');
       }
@@ -73,5 +85,5 @@ export const useCTAButton = () => {
     }
   };
 
-  return { handleNextStep, handlePreviousStep, subjectError, newSubjectError };
+  return { handleNextStep, handlePreviousStep, subjectError };
 };

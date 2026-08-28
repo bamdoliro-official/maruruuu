@@ -1,23 +1,20 @@
+import { GED_SUBJECT_LIST, SUBJECT_LIST } from '@/constants/form/data';
 import { useSaveFormQuery } from '@/services/form/queries';
 import {
   useIsSaveFormLoadedStore,
   useSetFormStore,
   useSetGEDSubjectListStore,
   useSetNewGEDSubjectListStore,
-  useSetNewSubjectListStore,
   useSetSubjectListStore,
 } from '@/stores';
-import type { Subject } from '@/types/form/client';
 import { updateSlicedSubjectList } from '@/utils';
 import { useEffect } from 'react';
-import type { SetterOrUpdater } from 'recoil';
 
 const SaveFormManager = () => {
   const { data: saveFormData } = useSaveFormQuery();
   const [isSaveFormLoaded, setIsSaveFormLoaded] = useIsSaveFormLoadedStore();
   const setForm = useSetFormStore();
   const setSubjectList = useSetSubjectListStore();
-  const setNewSubjectList = useSetNewSubjectListStore();
   const setGEDSubjectList = useSetGEDSubjectListStore();
   const setNewGEDSubjectList = useSetNewGEDSubjectListStore();
 
@@ -27,20 +24,29 @@ const SaveFormManager = () => {
     const subjectList = saveFormData.grade.subjectList;
     const graduationType = saveFormData.education.graduationType;
 
-    setForm((prev) => ({ ...prev, ...saveFormData }));
+    setForm((prev) => ({
+      ...prev,
+      ...saveFormData,
+      grade: { ...prev.grade, ...saveFormData.grade },
+    }));
 
     if (subjectList) {
-      const updateSubjects: [
-        SetterOrUpdater<Subject[]>,
-        SetterOrUpdater<Subject[]>,
-        number,
-      ] =
-        graduationType === 'QUALIFICATION_EXAMINATION'
-          ? [setGEDSubjectList, setNewGEDSubjectList, 5]
-          : [setSubjectList, setNewSubjectList, 12];
+      if (graduationType === 'QUALIFICATION_EXAMINATION') {
+        const GEDSubjectCount = GED_SUBJECT_LIST.length;
 
-      updateSubjects[0](updateSlicedSubjectList(subjectList, 0, updateSubjects[2]));
-      updateSubjects[1](updateSlicedSubjectList(subjectList, updateSubjects[2]));
+        setGEDSubjectList(updateSlicedSubjectList(subjectList, 0, GEDSubjectCount));
+        setNewGEDSubjectList(updateSlicedSubjectList(subjectList, GEDSubjectCount));
+      } else {
+        setSubjectList(
+          SUBJECT_LIST.map((subject, index) => {
+            const savedSubject = subjectList.find(
+              ({ subjectName }) => subjectName === subject.subjectName,
+            );
+
+            return savedSubject ? { ...subject, ...savedSubject, id: index } : subject;
+          }),
+        );
+      }
     }
 
     setIsSaveFormLoaded(true);
@@ -51,7 +57,6 @@ const SaveFormManager = () => {
     setGEDSubjectList,
     setIsSaveFormLoaded,
     setNewGEDSubjectList,
-    setNewSubjectList,
     setSubjectList,
   ]);
 
