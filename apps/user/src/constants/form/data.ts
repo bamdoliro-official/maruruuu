@@ -54,6 +54,7 @@ export const FORM: Form = {
     volunteerTime2: 0,
     volunteerTime3: 0,
     certificateList: [],
+    mentoringProgram: false,
   },
   document: {
     coverLetter: '',

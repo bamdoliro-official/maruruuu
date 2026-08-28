@@ -227,27 +227,36 @@ const useGradeCalculation = () => {
         certificateScore += 1;
     }
 
-    return Math.min(certificateScore, 4);
+    return certificateScore;
   };
+
+  const calculateMentoringProgramScore = () =>
+    form.grade.mentoringProgram ? SCORE.MENTORING_PROGRAM : 0;
+
+  const calculateBonusScore = () =>
+    Math.min(
+      calculateCertificateScore() + calculateMentoringProgramScore(),
+      SCORE.MAX_BONUS,
+    );
 
   const regularScore = calculateRegularScore();
   const specialScore =
     form.type === 'SPECIAL_ADMISSION' ? calculateRegularScore() : calculateSpecialScore();
   const attendanceScore = calculateAttendanceScore();
   const volunteerScore = calculateVolunteerScore();
-  const certificateScore = calculateCertificateScore();
+  const bonusScore = calculateBonusScore();
 
   const regularTotalScore = (
     regularScore +
     attendanceScore +
     volunteerScore +
-    certificateScore
+    bonusScore
   ).toFixed(3);
   const specialTotalScore = (
     specialScore +
     attendanceScore +
     volunteerScore +
-    certificateScore
+    bonusScore
   ).toFixed(3);
 
   return {
@@ -255,7 +264,7 @@ const useGradeCalculation = () => {
     specialScore,
     attendanceScore,
     volunteerScore,
-    certificateScore,
+    bonusScore,
     regularTotalScore,
     specialTotalScore,
   };

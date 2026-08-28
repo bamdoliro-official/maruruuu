@@ -22,6 +22,8 @@ export const SCORE = {
   MAX_ATTENDANCE: 18,
   MIN_VOLUNTEER: 0,
   MAX_VOLUNTEER: 18,
+  MAX_BONUS: 4,
+  MENTORING_PROGRAM: 1,
 };
 
 export const COUNT = {
@@ -72,6 +74,12 @@ export const LEVEL_LIST: { name: string; value: Certificate }[] = [
   { name: '2급(2점)', value: 'COMPUTER_SPECIALIST_LEVEL_2' },
   { name: '3급(1점)', value: 'COMPUTER_SPECIALIST_LEVEL_3' },
 ];
+
+export const MENTORING_PROGRAM = {
+  name: '본교 재학생들과 함께하는 멘토·멘티 프로그램',
+  organization: '부산소프트웨어마이스터고등학교',
+  score: '1점',
+};
 
 export const ATTENDANCE_TYPE = [
   'absenceCount',

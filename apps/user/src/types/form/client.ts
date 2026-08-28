@@ -44,6 +44,7 @@ export interface Form {
     volunteerTime2: number;
     volunteerTime3: number;
     certificateList: Certificate[];
+    mentoringProgram: boolean;
   };
   document: {
     coverLetter: string;
@@ -90,6 +91,7 @@ export interface Grade {
   volunteerTime2: number;
   volunteerTime3: number;
   certificateList: Certificate[];
+  mentoringProgram: boolean;
 }
 
 export type GraduationType = 'QUALIFICATION_EXAMINATION' | 'EXPECTED' | 'GRADUATED';
