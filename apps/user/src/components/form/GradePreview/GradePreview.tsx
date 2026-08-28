@@ -68,7 +68,7 @@ const GradePreview = ({ location }: GradePreviewProps) => {
         <Td
           width="calc(100% / 6)"
           height={56}
-          styleType={location === '자격증' ? 'FORM' : 'PRIMARY'}
+          styleType={location === '가산점' ? 'FORM' : 'PRIMARY'}
         >
           {certificateScore}
         </Td>
@@ -109,7 +109,7 @@ const GradePreview = ({ location }: GradePreviewProps) => {
         <Td
           width="calc(100% / 6)"
           height={56}
-          styleType={location === '자격증' ? 'FORM' : 'PRIMARY'}
+          styleType={location === '가산점' ? 'FORM' : 'PRIMARY'}
         >
           {certificateScore}
         </Td>

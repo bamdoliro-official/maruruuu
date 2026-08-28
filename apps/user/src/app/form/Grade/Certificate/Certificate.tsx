@@ -10,7 +10,7 @@ const Certificate = () => {
     <>
       <Column gap={24}>
         <NavigationBar>
-          <UnderlineButton active={true}>자격증</UnderlineButton>
+          <UnderlineButton active={true}>가산점</UnderlineButton>
         </NavigationBar>
         <CertificateCalculator />
       </Column>

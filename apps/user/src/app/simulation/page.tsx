@@ -58,7 +58,7 @@ const Simulation = () => {
               성적입력: <GradeCalculator option="SIMULATION" />,
               출결상황: <AttendanceCalculator />,
               봉사시간: <VolunteerCalculator />,
-              자격증: <CertificateCalculator />,
+              가산점: <CertificateCalculator />,
             }}
             defaultComponent={<GradeCalculator option="SIMULATION" />}
           />

@@ -46,7 +46,7 @@ export const useCTAButton = () => {
   const handleNextStep = () => {
     if (validateSubjects()) {
       if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-        setFormGradeStep('자격증');
+        setFormGradeStep('가산점');
       } else {
         setFormGradeStep('출결상황');
       }

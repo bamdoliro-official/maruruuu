@@ -7,7 +7,7 @@ export const useCTAButton = () => {
   const { saveFormMutate } = useSaveFormMutation();
 
   const handleNextStep = () => {
-    setFormGradeStep('자격증');
+    setFormGradeStep('가산점');
     saveFormMutate(form);
   };
 

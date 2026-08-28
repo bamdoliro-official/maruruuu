@@ -1,7 +1,7 @@
 import type { Form, Subject } from '@/types/form/client';
 import { INFORMATION_SUBJECT } from './constants';
 
-export const STEP_LIST = ['성적 입력', '출결상황', '봉사시간', '자격증'] as const;
+export const STEP_LIST = ['성적 입력', '출결상황', '봉사시간', '가산점'] as const;
 
 export const FORM: Form = {
   applicant: {

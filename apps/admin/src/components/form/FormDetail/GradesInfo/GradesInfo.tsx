@@ -67,7 +67,7 @@ const GradesInfo = ({ id }: GradesInfoProps) => {
                 '교과 성적': (
                   <QualificationExaminationGrade subjectList={gradesData.subjectList} />
                 ),
-                자격증: <Certificate certificateList={gradesData.certificateList} />,
+                가산점: <Certificate certificateList={gradesData.certificateList} />,
               }
             : {
                 '교과 성적': <Grade subjectList={gradesData.subjectList} />,
