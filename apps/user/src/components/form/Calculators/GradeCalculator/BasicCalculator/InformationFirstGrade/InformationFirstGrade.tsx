@@ -58,7 +58,7 @@ const InformationFirstGrade = ({ achievementLevels }: InformationFirstGradeProps
                 value={getDisplayValue(informationSubject?.[key])}
                 size="SMALL"
                 data={achievementLevels}
-                width={80}
+                width={96}
                 name={key}
                 onChange={handleAchievementLevelChange}
               />

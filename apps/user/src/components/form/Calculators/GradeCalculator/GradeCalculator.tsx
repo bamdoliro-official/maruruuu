@@ -35,8 +35,6 @@ const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
             </>
           )}
           *국어•영어•수학에서 미이수 입력 시 자동으로 C로 처리됩니다.
-          <br />
-          {option === 'SIMULATION' && <>*-(하이픈)은 점수에 반영되지 않습니다.</>}
         </Text>
         {option === 'SIMULATION' && (
           <Switch

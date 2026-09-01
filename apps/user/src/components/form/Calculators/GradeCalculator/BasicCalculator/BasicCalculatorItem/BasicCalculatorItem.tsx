@@ -56,7 +56,7 @@ const BasicCalculatorItem = ({
             value={getDisplayValue(subject[key])}
             size="SMALL"
             data={achievementLevels}
-            width={80}
+            width={96}
             onChange={handleSubjectChange}
             name={key}
             isError={subject[key] === '-' && isError[id]}
