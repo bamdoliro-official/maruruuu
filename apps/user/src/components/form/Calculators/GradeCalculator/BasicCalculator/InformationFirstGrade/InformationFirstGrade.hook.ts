@@ -39,6 +39,8 @@ export const useInformationFirstGrade = () => {
   const handleHasFirstGradeChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === 'EXISTS') {
       setIsChecked(true);
+      // 표와 마찬가지로 이수한 학기만 골라 넣도록 미이수에서 시작한다.
+      updateInformationSubject({ achievementLevel11: 'F', achievementLevel12: 'F' });
       return;
     }
 
