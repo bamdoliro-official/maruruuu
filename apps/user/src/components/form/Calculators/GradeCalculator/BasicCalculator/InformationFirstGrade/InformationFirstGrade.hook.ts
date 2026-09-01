@@ -4,6 +4,7 @@ import {
 } from '@/constants/form/constants';
 import { useSubjectListStore } from '@/stores';
 import type { AchievementLevel, Subject } from '@/types/form/client';
+import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
 type InformationFirstGradeKey = (typeof INFORMATION_FIRST_GRADE_KEYS)[number];
@@ -16,12 +17,13 @@ export const useInformationFirstGrade = () => {
     ({ subjectName }) => subjectName === INFORMATION_SUBJECT,
   );
 
-  // 임시저장을 불러와 1학년 성적이 채워진 경우에도 열린 상태로 보여준다.
+  // 임시저장을 불러와 1학년 성적이 채워진 경우에도 '있음'으로 보여준다.
   const hasFirstGradeScore = INFORMATION_FIRST_GRADE_KEYS.some((key) => {
     const achievementLevel = informationSubject?.[key];
     return achievementLevel !== undefined && achievementLevel !== '-';
   });
 
+  // '있음'을 고른 직후에는 성취수준이 아직 '-'이라 값만으로는 구분할 수 없다.
   const isOpen = isChecked || hasFirstGradeScore;
 
   const updateInformationSubject = (updatedSubject: Partial<Subject>) => {
@@ -34,14 +36,14 @@ export const useInformationFirstGrade = () => {
     );
   };
 
-  const handleToggleChange = () => {
-    if (isOpen) {
-      setIsChecked(false);
-      updateInformationSubject({ achievementLevel11: '-', achievementLevel12: '-' });
+  const handleHasFirstGradeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === 'EXISTS') {
+      setIsChecked(true);
       return;
     }
 
-    setIsChecked(true);
+    setIsChecked(false);
+    updateInformationSubject({ achievementLevel11: '-', achievementLevel12: '-' });
   };
 
   const handleAchievementLevelChange = (data: string, name: string) => {
@@ -51,9 +53,10 @@ export const useInformationFirstGrade = () => {
   };
 
   return {
+    hasFirstGrade: isOpen ? 'EXISTS' : 'NONE',
     isOpen,
     informationSubject,
-    handleToggleChange,
+    handleHasFirstGradeChange,
     handleAchievementLevelChange,
   };
 };
