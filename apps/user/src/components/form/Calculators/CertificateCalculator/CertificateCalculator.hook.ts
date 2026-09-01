@@ -12,11 +12,7 @@ export const useInput = () => {
       ...prev,
       grade: {
         ...prev.grade,
-        certificateList: checked
-          ? [...(prev.grade.certificateList ?? []), value as Certificate]
-          : prev.grade.certificateList.filter(
-              (certificate) => certificate !== (value as Certificate),
-            ),
+        certificateList: checked ? [value as Certificate] : [],
       },
     }));
   };

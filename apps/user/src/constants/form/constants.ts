@@ -69,6 +69,15 @@ export const CERTIFICATE_LIST: {
   },
 ];
 
+export const CERTIFICATE_SCORE: Record<Certificate, number> = {
+  CRAFTSMAN_INFORMATION_PROCESSING: 3,
+  CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION: 3,
+  CRAFTSMAN_COMPUTER: 3,
+  COMPUTER_SPECIALIST_LEVEL_1: 3,
+  COMPUTER_SPECIALIST_LEVEL_2: 2,
+  COMPUTER_SPECIALIST_LEVEL_3: 1,
+};
+
 export const LEVEL_LIST: { name: string; value: Certificate }[] = [
   { name: '1급(3점)', value: 'COMPUTER_SPECIALIST_LEVEL_1' },
   { name: '2급(2점)', value: 'COMPUTER_SPECIALIST_LEVEL_2' },
