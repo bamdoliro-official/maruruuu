@@ -17,13 +17,11 @@ export const useInformationFirstGrade = () => {
     ({ subjectName }) => subjectName === INFORMATION_SUBJECT,
   );
 
-  // 임시저장을 불러와 1학년 성적이 채워진 경우에도 '있음'으로 보여준다.
   const hasFirstGradeScore = INFORMATION_FIRST_GRADE_KEYS.some((key) => {
     const achievementLevel = informationSubject?.[key];
     return achievementLevel !== undefined && achievementLevel !== '-';
   });
 
-  // '있음'을 고른 직후에는 성취수준이 아직 '-'이라 값만으로는 구분할 수 없다.
   const isOpen = isChecked || hasFirstGradeScore;
 
   const updateInformationSubject = (updatedSubject: Partial<Subject>) => {
@@ -39,7 +37,6 @@ export const useInformationFirstGrade = () => {
   const handleHasFirstGradeChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === 'EXISTS') {
       setIsChecked(true);
-      // 표와 마찬가지로 이수한 학기만 골라 넣도록 미이수에서 시작한다.
       updateInformationSubject({ achievementLevel11: 'F', achievementLevel12: 'F' });
       return;
     }

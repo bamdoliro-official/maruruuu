@@ -14,8 +14,8 @@ const SEMESTERS = [
 ] as const;
 
 const HAS_FIRST_GRADE_ITEMS = [
-  { label: '이수한 학기 없음', value: 'NONE' },
   { label: '있음', value: 'EXISTS' },
+  { label: '이수한 학기 없음', value: 'NONE' },
 ];
 
 const InformationFirstGrade = ({ achievementLevels }: InformationFirstGradeProps) => {

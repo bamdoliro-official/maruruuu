@@ -81,8 +81,8 @@ export const SUBJECT_LIST: Subject[] = [
   achievementLevel31: 'F',
   score: null,
   ...(subject === INFORMATION_SUBJECT && {
-    achievementLevel11: '-',
-    achievementLevel12: '-',
+    achievementLevel11: 'F',
+    achievementLevel12: 'F',
   }),
 }));
 
