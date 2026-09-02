@@ -198,10 +198,6 @@ const useGradeCalculation = () => {
   };
 
   const calculateVolunteerScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return SCORE.VOLUNTEER;
-    }
-
     const totalVolunteerTime =
       form.grade.volunteerTime1 + form.grade.volunteerTime2 + form.grade.volunteerTime3;
 

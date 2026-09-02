@@ -81,7 +81,11 @@ export const GRADUATION_TYPE_VALUE: Record<GraduationType, string> = {
 
 export const GRADES_FIELDS = ['교과 성적', '출결 상황', '봉사 시간', '가산점'] as const;
 
-export const GRADES_QUALIFICATION_EXAMINATION_FIELDS = ['교과 성적', '가산점'] as const;
+export const GRADES_QUALIFICATION_EXAMINATION_FIELDS = [
+  '교과 성적',
+  '봉사 시간',
+  '가산점',
+] as const;
 
 export const RECEIVED_STATUS_LIST: {
   name: string;

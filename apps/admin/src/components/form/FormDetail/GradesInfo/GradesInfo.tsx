@@ -69,6 +69,7 @@ const GradesInfo = ({ id }: GradesInfoProps) => {
                 '교과 성적': (
                   <QualificationExaminationGrade subjectList={gradesData.subjectList} />
                 ),
+                '봉사 시간': <Volunteer VolunteerList={gradesData.volunteerList} />,
                 가산점: (
                   <Column gap={24}>
                     <Certificate certificateList={gradesData.certificateList} />

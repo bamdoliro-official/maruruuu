@@ -8,10 +8,9 @@ export const useNavigationClick = () => {
   const handleMoveStep = (step: string) => {
     const qualificationExam =
       form.education.graduationType === 'QUALIFICATION_EXAMINATION';
-    const nowStep = step === '출결상황' || step === '봉사시간';
 
-    if (qualificationExam && nowStep) {
-      alert('검정고시 합격자는 기본 점수가 부여돼요.');
+    if (qualificationExam && step === '출결상황') {
+      alert('검정고시 합격자는 출결상황 기본 점수가 부여돼요.');
       return;
     }
     setCurrentStep(step);

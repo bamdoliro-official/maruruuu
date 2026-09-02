@@ -70,7 +70,7 @@ export const useCTAButton = () => {
   const handleNextStep = () => {
     if (validateSubjects()) {
       if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-        setFormGradeStep('가산점');
+        setFormGradeStep('봉사시간');
       } else {
         setFormGradeStep('출결상황');
       }

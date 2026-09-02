@@ -11,7 +11,6 @@ const VolunteerCalculator = () => {
   const form = useFormValueStore();
   const { handleVolunteerTimeChange } = useInput();
 
-  const isReadOnly = form.education.graduationType === 'QUALIFICATION_EXAMINATION';
   const scoreEndYear = formatYear(SCHEDULE.원서_접수);
   const scoreStartYear = formatYear(SCHEDULE.원서_접수.subtract(2, 'year'));
   const volunteerData = [
@@ -55,7 +54,6 @@ const VolunteerCalculator = () => {
                 onChange={handleVolunteerTimeChange}
                 value={value}
                 isError={Number(value) < 0}
-                readOnly={isReadOnly}
               />
               <Hour>시간</Hour>
             </Td>
