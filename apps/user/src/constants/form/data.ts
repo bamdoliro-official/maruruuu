@@ -70,7 +70,7 @@ export const SUBJECT_LIST: Subject[] = [
   '도덕',
   '수학',
   '과학',
-  '기술·가정',
+  '기술가정',
   '정보',
   '영어',
 ].map((subject, index) => ({
