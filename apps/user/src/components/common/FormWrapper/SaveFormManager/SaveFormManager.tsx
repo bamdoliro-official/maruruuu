@@ -7,7 +7,7 @@ import {
   useSetNewGEDSubjectListStore,
   useSetSubjectListStore,
 } from '@/stores';
-import { updateSlicedSubjectList } from '@/utils';
+import { getHighestCertificateList, updateSlicedSubjectList } from '@/utils';
 import { useEffect } from 'react';
 
 const SaveFormManager = () => {
@@ -27,7 +27,11 @@ const SaveFormManager = () => {
     setForm((prev) => ({
       ...prev,
       ...saveFormData,
-      grade: { ...prev.grade, ...saveFormData.grade },
+      grade: {
+        ...prev.grade,
+        ...saveFormData.grade,
+        certificateList: getHighestCertificateList(saveFormData.grade.certificateList),
+      },
     }));
 
     if (subjectList) {

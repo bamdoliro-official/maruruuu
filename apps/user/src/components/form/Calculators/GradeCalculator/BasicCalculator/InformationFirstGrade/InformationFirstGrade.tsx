@@ -1,5 +1,5 @@
 import { color, font } from '@maru/design-system';
-import { CheckBox, Dropdown, Td } from '@maru/ui';
+import { Dropdown, RadioGroup } from '@maru/ui';
 import { flex } from '@maru/utils';
 import styled from '@emotion/styled';
 import { useInformationFirstGrade } from './InformationFirstGrade.hook';
@@ -13,9 +13,19 @@ const SEMESTERS = [
   { key: 'achievementLevel12', label: '2학기' },
 ] as const;
 
+const HAS_FIRST_GRADE_ITEMS = [
+  { label: '있음', value: 'EXISTS' },
+  { label: '이수한 학기 없음', value: 'NONE' },
+];
+
 const InformationFirstGrade = ({ achievementLevels }: InformationFirstGradeProps) => {
-  const { isOpen, informationSubject, handleToggleChange, handleAchievementLevelChange } =
-    useInformationFirstGrade();
+  const {
+    hasFirstGrade,
+    isOpen,
+    informationSubject,
+    handleHasFirstGradeChange,
+    handleAchievementLevelChange,
+  } = useInformationFirstGrade();
 
   const getDisplayValue = (achievementLevel?: string) => {
     if (achievementLevel === 'F') return '미이수';
@@ -23,72 +33,71 @@ const InformationFirstGrade = ({ achievementLevels }: InformationFirstGradeProps
   };
 
   return (
-    <>
-      <ToggleFooter $isOpen={isOpen}>
-        <ToggleLabel>
-          <CheckBox checked={isOpen} onChange={handleToggleChange} />
-          1학년에도 정보 교과 성적이 있어요
-        </ToggleLabel>
-      </ToggleFooter>
+    <StyledInformationFirstGrade>
+      <RadioGroup
+        label={
+          <>
+            <Title>정보 교과 1학년 성적</Title>
+            <SubTitle>
+              정보 교과 가중치 산출에만 반영됩니다. 1학년에 정보 교과를 이수한 경우에만
+              입력해주세요.
+            </SubTitle>
+          </>
+        }
+        name="hasInformationFirstGrade"
+        value={hasFirstGrade}
+        onChange={handleHasFirstGradeChange}
+        items={HAS_FIRST_GRADE_ITEMS}
+      />
       {isOpen && (
-        <SemesterRow>
-          <Td styleType="SECONDARY" width="25%" height={64} borderBottomLeftRadius={12}>
-            1학년 정보
-          </Td>
-          {SEMESTERS.map(({ key, label }, index) => (
-            <Td
-              key={key}
-              width="37.5%"
-              height={64}
-              borderBottomRightRadius={index === SEMESTERS.length - 1 ? 12 : 0}
-            >
-              <Semester>
-                <SemesterLabel>{label}</SemesterLabel>
-                <Dropdown
-                  value={getDisplayValue(informationSubject?.[key])}
-                  size="SMALL"
-                  data={achievementLevels}
-                  width={80}
-                  name={key}
-                  onChange={handleAchievementLevelChange}
-                />
-              </Semester>
-            </Td>
+        <Semesters>
+          {SEMESTERS.map(({ key, label }) => (
+            <Semester key={key}>
+              <SemesterLabel>{label}</SemesterLabel>
+              <Dropdown
+                value={getDisplayValue(informationSubject?.[key])}
+                size="SMALL"
+                data={achievementLevels}
+                width={96}
+                name={key}
+                onChange={handleAchievementLevelChange}
+              />
+            </Semester>
           ))}
-        </SemesterRow>
+        </Semesters>
       )}
-    </>
+    </StyledInformationFirstGrade>
   );
 };
 
 export default InformationFirstGrade;
 
-const ToggleFooter = styled.div<{ $isOpen: boolean }>`
-  ${flex({ alignItems: 'center', justifyContent: 'center' })}
+const StyledInformationFirstGrade = styled.div`
+  ${flex({ flexDirection: 'column' })}
+  gap: 16px;
   width: 100%;
-  height: 64px;
-  background-color: ${color.gray100};
-  border: 1px dashed ${color.gray300};
-  border-top: none;
-  border-radius: ${(props) => (props.$isOpen ? '0' : '0px 0px 12px 12px')};
+  padding: 20px 24px;
+  background-color: ${color.gray50};
+  border: 1px solid ${color.gray300};
+  border-radius: 12px;
 `;
 
-const ToggleLabel = styled.label`
-  ${flex({ alignItems: 'center' })}
-  gap: 12px;
+const Title = styled.span`
+  display: block;
   color: ${color.gray900};
   ${font.H6}
-  cursor: pointer;
-
-  input {
-    width: 22px;
-    height: 22px;
-  }
 `;
 
-const SemesterRow = styled.div`
+const SubTitle = styled.span`
+  display: block;
+  margin-top: 4px;
+  color: ${color.gray600};
+  ${font.p3}
+`;
+
+const Semesters = styled.div`
   ${flex({ alignItems: 'center' })}
-  width: 100%;
+  gap: 24px;
 `;
 
 const Semester = styled.div`

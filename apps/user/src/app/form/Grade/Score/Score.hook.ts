@@ -22,8 +22,6 @@ export const useCTAButton = () => {
 
   const [subjectError, setSubjectError] = useState<boolean[]>([]);
 
-  // 검정고시는 과목명을 고르지 않았거나 점수가 비어 있어도 총점 분모에는 포함돼
-  // 점수가 조용히 깎인다. 넘어가기 전에 막는다.
   const validateGEDSubjects = () => {
     if (newGEDSubjectList.some(({ subjectName }) => !subjectName)) {
       alert('추가한 선택과목의 과목명을 선택해주세요.');
@@ -70,7 +68,7 @@ export const useCTAButton = () => {
   const handleNextStep = () => {
     if (validateSubjects()) {
       if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-        setFormGradeStep('가산점');
+        setFormGradeStep('봉사시간');
       } else {
         setFormGradeStep('출결상황');
       }
@@ -79,10 +77,8 @@ export const useCTAButton = () => {
   };
 
   const handlePreviousStep = () => {
-    if (validateSubjects()) {
-      setFormStep('전형선택');
-      saveFormMutate(form);
-    }
+    setFormStep('전형선택');
+    saveFormMutate(form);
   };
 
   return { handleNextStep, handlePreviousStep, subjectError };

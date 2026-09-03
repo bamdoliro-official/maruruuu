@@ -70,19 +70,19 @@ export const SUBJECT_LIST: Subject[] = [
   '도덕',
   '수학',
   '과학',
-  '기술·가정',
+  '기술가정',
   '정보',
   '영어',
 ].map((subject, index) => ({
   id: index,
   subjectName: subject,
-  achievementLevel21: '-',
-  achievementLevel22: '-',
-  achievementLevel31: '-',
+  achievementLevel21: 'F',
+  achievementLevel22: 'F',
+  achievementLevel31: 'F',
   score: null,
   ...(subject === INFORMATION_SUBJECT && {
-    achievementLevel11: '-',
-    achievementLevel12: '-',
+    achievementLevel11: 'F',
+    achievementLevel12: 'F',
   }),
 }));
 

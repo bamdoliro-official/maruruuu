@@ -15,11 +15,7 @@ export const useCTAButton = () => {
   };
 
   const handlePreviousStep = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      setFormGradeStep('교과성적');
-    } else {
-      setFormGradeStep('출결상황');
-    }
+    setFormGradeStep('봉사시간');
     saveFormMutate(form);
   };
 

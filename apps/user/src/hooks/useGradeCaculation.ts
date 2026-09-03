@@ -1,4 +1,10 @@
-import { COUNT, INFORMATION_SUBJECT, SCORE, WEIGHT } from '@/constants/form/constants';
+import {
+  CERTIFICATE_SCORE,
+  COUNT,
+  INFORMATION_SUBJECT,
+  SCORE,
+  WEIGHT,
+} from '@/constants/form/constants';
 import { useFormValueStore } from '@/stores';
 import type { AchievementLevel } from '@/types/form/client';
 import { getAchivementLevel } from '@/utils';
@@ -192,10 +198,6 @@ const useGradeCalculation = () => {
   };
 
   const calculateVolunteerScore = () => {
-    if (form.education.graduationType === 'QUALIFICATION_EXAMINATION') {
-      return SCORE.VOLUNTEER;
-    }
-
     const totalVolunteerTime =
       form.grade.volunteerTime1 + form.grade.volunteerTime2 + form.grade.volunteerTime3;
 
@@ -209,22 +211,12 @@ const useGradeCalculation = () => {
 
   const calculateCertificateScore = () => {
     const certificateList = form.grade.certificateList ?? [];
-    let certificateScore = 0;
 
-    if (
-      certificateList.includes('CRAFTSMAN_INFORMATION_PROCESSING') ||
-      certificateList.includes('CRAFTSMAN_INFORMATION_EQUIPMENT_OPERATION') ||
-      certificateList.includes('CRAFTSMAN_COMPUTER')
-    )
-      certificateScore += 3;
-
-    if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_1')) certificateScore += 3;
-    else if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_2'))
-      certificateScore += 2;
-    else if (certificateList.includes('COMPUTER_SPECIALIST_LEVEL_3'))
-      certificateScore += 1;
-
-    return certificateScore;
+    return certificateList.reduce(
+      (highestScore, certificate) =>
+        Math.max(highestScore, CERTIFICATE_SCORE[certificate] ?? 0),
+      0,
+    );
   };
 
   const calculateMentoringProgramScore = () =>

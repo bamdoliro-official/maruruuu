@@ -1,7 +1,6 @@
-import { useFormStore } from '@/stores';
-import type { GraduationType } from '@/types/form/client';
+import { useFormValueStore } from '@/stores';
 import { color } from '@maru/design-system';
-import { Row, Switch, Text } from '@maru/ui';
+import { Text } from '@maru/ui';
 import { flex } from '@maru/utils';
 import { SwitchCase } from '@toss/react';
 import styled from '@emotion/styled';
@@ -14,45 +13,19 @@ interface GradeCalculatorProps {
 }
 
 const GradeCalculator = ({ subjectError, option }: GradeCalculatorProps) => {
-  const [form, setForm] = useFormStore();
-
-  const handleChangeGraduationType = (value: string) => {
-    const graduationType = value as GraduationType;
-    setForm((prev) => ({
-      ...prev,
-      education: { ...prev.education, graduationType },
-    }));
-  };
+  const form = useFormValueStore();
 
   return (
     <StyledGradeCalculator>
-      <Row alignItems="top" justifyContent="space-between">
-        <Text fontType="p3" color={color.red}>
-          {option === 'SIMULATION' && (
-            <>
-              *교과성적이 없는 학기나 학년의 경우 모집요강을 반드시 확인해주시기 바랍니다.
-              <br />
-            </>
-          )}
-          *국어•영어•수학에서 미이수 입력 시 자동으로 C로 처리됩니다.
-          <br />
-          *1학년 정보 교과 성적은 정보 교과 가중치 산출에만 반영되며, 이수한 경우에만
-          입력해주세요.
-          <br />
-          {option === 'SIMULATION' && <>*-(하이픈)은 점수에 반영되지 않습니다.</>}
-        </Text>
+      <Text fontType="p3" color={color.red}>
         {option === 'SIMULATION' && (
-          <Switch
-            items={[
-              { name: '졸업 예정', value: 'EXPECTED' },
-              { name: '졸업', value: 'GRADUATED' },
-              { name: '검정고시', value: 'QUALIFICATION_EXAMINATION' },
-            ]}
-            value={form.education.graduationType}
-            onChange={handleChangeGraduationType}
-          />
+          <>
+            *교과성적이 없는 학기나 학년의 경우 모집요강을 반드시 확인해주시기 바랍니다.
+            <br />
+          </>
         )}
-      </Row>
+        *국어•영어•수학에서 미이수 입력 시 자동으로 C로 처리됩니다.
+      </Text>
       <SwitchCase
         value={form.education.graduationType}
         caseBy={{
