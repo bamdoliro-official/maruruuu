@@ -2,8 +2,13 @@ import { color, font } from '@maru/design-system';
 import { flex } from '@maru/utils';
 import type { CSSProperties } from 'react';
 import styled from '@emotion/styled';
+import { SCHEDULE } from '@/constants/common/constants';
+import { formatYear } from '@/utils';
 
 const FinalFormTable = () => {
+  const volunteerEndYear = formatYear(SCHEDULE.원서_접수);
+  const volunteerStartYear = formatYear(SCHEDULE.원서_접수.subtract(2, 'year'));
+
   return (
     <StyledFinalFormTable>
       <thead>
@@ -60,7 +65,9 @@ const FinalFormTable = () => {
                     학교생활기록부에 기록된 내용과 1365 자원봉사포털, VMS, DOVOL에서
                     참여한 봉사 실적만 인정
                   </Note>
-                  <Note>2024.3.1.(금) ~ 2026.9.30.(화) 실적에 한함</Note>
+                  <Note>
+                    {volunteerStartYear}.3.1. ~ {volunteerEndYear}.9.30. 실적에 한함
+                  </Note>
                 </NoteList>
               </DocumentItem>
             </DocumentList>
